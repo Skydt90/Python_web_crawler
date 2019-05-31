@@ -70,7 +70,7 @@ def add_md_formatting(contents):
 
         for line in contents:
                 if line.startswith("h1"):
-                        placeholder = "\n\n" + line.replace("h1", "# ") + "\n\n"
+                        placeholder = "\n" + line.replace("h1", "# ") + "\n"
                         formatted_list.append(placeholder)
                 elif line.startswith("h2"):
                         placeholder = "\n" + line.replace("h2", "## ")
