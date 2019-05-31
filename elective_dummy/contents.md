@@ -67,8 +67,6 @@ What you choose to retrieve from the crawled site is up to you. But you should d
 
 ## An Example
 A html page looking like this:  
-re<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta http-equiv="X-UA-Compatible" content="ie=edge"> <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> <title>Index</title> </head> <body> <nav class="nav"> <a class="nav-link active" href="index.html">Home</a> <a class="nav-link" href="about.html">About</a> <a class="nav-link" href="contact.html">Contact</a> </nav> <div class="container"> <h1>Clbo company</h1> <p>Welcome home!</p> <p>Here you have a list of our services</p> <ul> <li>Web Scraping</li> <li>Web Design</li> <li>Backend development</li> </ul> </div> </body> </html>  
-# Clbo company Welcome home! Here you have a list of our services * Web Scraping * Web Design * Backend development  
 
 
 # Help the police find the criminals
@@ -84,6 +82,13 @@ file you should create a console application.
 * The data output should be readable (for normal users).
 
 * The application should furthermore be able to add new records to the dataset. (this includes writing to the csv file.)
+
+
+# An application of your own choice.
+
+
+You can create whatever you want, as long as you can show me (Claus) a precise requirements specification before you start, and get it approved.  
+It is important, that you at the exam precisely demonstrate the fulfilments of these requirements.  
 
 
 # Blackjack
@@ -102,10 +107,3 @@ Further requirements
 * A bet functionality should be implemented.
 
 * If you like you can see some more pictures of the game on this
-
-
-# An application of your own choice.
-
-
-You can create whatever you want, as long as you can show me (Claus) a precise requirements specification before you start, and get it approved.  
-It is important, that you at the exam precisely demonstrate the fulfilments of these requirements.  
