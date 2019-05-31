@@ -10,6 +10,8 @@ class Spider:
     domain_name = ""
     queue_file = ""
     crawled_file = ""
+    data_file = ""
+    data_list = []
     queue = set()
     crawled = set()
 
@@ -19,6 +21,7 @@ class Spider:
         Spider.domain_name = domain_name
         Spider.queue_file = Spider.project_name + "/queue.txt"
         Spider.crawled_file = Spider.project_name + "/crawled.txt"
+        Spider.data_file = Spider.project_name + "/contents.md"
         self.boot()
         self.crawl_page("First spider", Spider.base_url)
 
@@ -49,27 +52,12 @@ class Spider:
             finder = LinkFinder(Spider.base_url, page_url)
             
             finder.feed(html_string)
+            Spider.data_list = finder.get_data_with_tags()
             
-            print('tags: ' + str(len(finder.page_tags())))
-            print('datas: ' + str(len(finder.page_data())))
-            
-            i = 0
-            while i < len(finder.page_data()) -1:
-                tag = finder.tags[i]
-                data = finder.data[i]
-                print(tag + ' ' + data )
-                i += 1
-            
-            '''
-            nr = 0
-            for line in finder.page_data():
-                print(str(nr) +" " + line)
-                nr +=1 '''
-
         except Exception as e:
             print("Error: " + str(e))
             return set()
-        return finder.page_links()
+        return finder.get_page_links()
     
     @staticmethod
     def add_links_to_queue(links):
@@ -86,3 +74,4 @@ class Spider:
     def update_files():
         set_to_file(Spider.queue, Spider.queue_file)
         set_to_file(Spider.crawled, Spider.crawled_file)
+        list_to_file(Spider.data_list, Spider.data_file)
