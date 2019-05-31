@@ -1,4 +1,5 @@
 import os
+import re
 
 # Creates a new directory for the project on first startup
 def create_project_directory(directory):
@@ -10,11 +11,14 @@ def create_project_directory(directory):
 def create_data_files(project_name, base_url):
         queue = project_name + "/queue.txt"
         crawled = project_name + "/crawled.txt"
+        contents = project_name + "/contents.md"
         
         if not os.path.isfile(queue):
                 write_file(queue, base_url)
         if not os.path.isfile(crawled):
                 write_file(crawled, "")
+        if not os.path.isfile(contents):
+                write_file(contents, "")
 
 # Creates a new file
 def write_file(path, data):
@@ -26,6 +30,14 @@ def write_file(path, data):
 def add_to_file(path, data):
         with open(path, "a") as file:
                 file.write(data + "\n")
+
+# Add data from list to md file
+def add_data_to_mdfile(path, contents):
+        f = open(path, "a")
+        for entry in contents:
+                f.write(entry + "\n")
+        f.close()
+
 
 # Delete the contents of a file
 def delete_file_content(path):
@@ -45,3 +57,29 @@ def set_to_file(links, file):
         delete_file_content(file)
         for link in sorted(links):
                 add_to_file(file, link)
+
+def list_to_file(contents, file):
+
+        formatted = add_md_formatting(contents)
+        add_data_to_mdfile(file, formatted)
+
+def add_md_formatting(contents):
+        formatted_list = []
+
+        for line in contents:
+                if line.startswith("h1"):
+                        placeholder = "\n" + line.replace("h1", "# ") + "\n"
+                        formatted_list.append(placeholder)
+                elif line.startswith("h2"):
+                        placeholder = "\n" + line.replace("h2", "## ")
+                        formatted_list.append(placeholder)
+                elif line.startswith("p"):
+                        placeholder = line.replace("p", "", 1) + "  "
+                        formatted_list.append(placeholder)
+                elif line.startswith("li"):
+                        placeholder = line.replace("li", "* ", 1)
+                        formatted_list.append(placeholder)
+                elif line.startswith("a"):
+                        placeholder = line.replace("a", "", 1)
+                        formatted_list.append(placeholder)    
+        return formatted_list

@@ -8,8 +8,7 @@ PROJECT_NAME = "elective_dummy"
 HOMEPAGE = "https://clbokea.github.io/exam/"
 DOMAIN_NAME = get_domain_name(HOMEPAGE)
 QUEUE_FILE = PROJECT_NAME + "/queue.txt"
-CRAWLED_FILE = PROJECT_NAME + "/crawled.txt"
-NUMBER_OF_THREADS = 4
+NUMBER_OF_THREADS = 1
 thread_queue = Queue()
 Spider(PROJECT_NAME, HOMEPAGE, DOMAIN_NAME)
 
