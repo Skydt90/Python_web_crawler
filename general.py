@@ -68,18 +68,19 @@ def add_md_formatting(contents):
 
         for line in contents:
                 if line.startswith("h1"):
-                        placeholder = "\n" + line.replace("h1", "# ") + "\n"
+                        placeholder = "\n\n" + line.replace("h1", "# ") + "\n\n"
                         formatted_list.append(placeholder)
                 elif line.startswith("h2"):
                         placeholder = "\n" + line.replace("h2", "## ")
                         formatted_list.append(placeholder)
                 elif line.startswith("p"):
-                        placeholder = line.replace("p", "", 1) + "  "
-                        formatted_list.append(placeholder)
+                        if not line.startswith("pNOTE") and not line.startswith("pAssignment"):
+                                placeholder = line.replace("p", "", 1) + "  "
+                                formatted_list.append(placeholder)
                 elif line.startswith("li"):
-                        placeholder = line.replace("li", "* ", 1)
+                        placeholder = "\n" + line.replace("li", "* ", 1)
                         formatted_list.append(placeholder)
                 elif line.startswith("a"):
                         placeholder = line.replace("a", "", 1)
-                        formatted_list.append(placeholder)    
+                        formatted_list.append(placeholder)  
         return formatted_list

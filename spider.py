@@ -56,7 +56,7 @@ class Spider:
             
         except Exception as e:
             print("Error: " + str(e))
-            return set()
+            exit()
         return finder.get_page_links()
     
     @staticmethod
