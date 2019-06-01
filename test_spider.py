@@ -1,28 +1,58 @@
 import unittest
-from spider import *
 
-class TestSpider(unittest.TestCase):
+class Test_Spider(unittest.TestCase):
 
-    #name is a string, no umbers are allowed in the string and name should not be empty
-    #CPR format xxxxxx-xxxx where xx is numbers and is a valid CPR number
-
-    def test_create_spider():
+    def test_add_links_to_queue_test(self):
         
-        project_name = 'some_project_name'
-        home_page = 'some_home_page'
+        domain_name = 'clbokea.github.io/exam'
+        links = []
+        link_one = 'https://clbokea.github.io/exam/assignment_1.html'
+        link_two = 'https://clbokea.github.io/exam/assignment_2.html'
+        link_three = 'https://clbokea.github.io/exam/assignment_3.html'
+        link_not_in_domain = 'www.facebook.com'
 
-        self.assertRaises(project_name, )
-        Spider(main.project_name, main.home_page, main.domain_name)
+        links.append(link_one)
+        links.append(link_two)
+        links.append(link_three)
+        links.append(link_not_in_domain)
 
-        if project_name
+        queue = []       ## in spider class it is a set
+        crawled = []     ## in spider class it is a set
+        queue.append(link_one)
+        crawled.append(link_two)
 
-    def test_if_stud_name_is_a_string(self):
+        ### method from spider class 
+        for url in links:
+            if url in queue:
+                continue
+            if url in crawled:
+                continue
+            if domain_name not in url:
+                continue
+            queue.append(url)
+        ### method from spider class 
+
+        is_dublicate_link_one = False
+        is_dublicate_link_two = False
+        counter_link_one = 0
+        counter_link_two = 0
+
+        for link in queue:
+            if link == link_one:
+                counter_link_one += 1
+            if link == link_two:
+                counter_link_two += 1
+
+        if counter_link_one > 1:
+            is_dublicate_link_one = True
+        if counter_link_two > 1:
+            is_dublicate_link_two = True
         
-        student = Student()
-        self.assertRaises(TypeError, Student, 12)
+        self.assertFalse(is_dublicate_link_one, 'Error: queued link added to queue. \nThis url: ' + link_one)
+        self.assertFalse(is_dublicate_link_two, 'Error: crawled link added to queue. \nThis url: ' + link_two)
+        self.assertNotIn(link_not_in_domain, queue, 'Error added a url to queue who is not in the domain. \nDomain: ' + domain_name + '\nUrl added: ' + link_not_in_domain)
 
-    def test_type_create_student():
-        print('sefsef')
 
-    def test_numbers_in_create_student():
-        self.assertRaises(ValueError, Student, 'Claus12', 112321-1234)
+
+if __name__ == '__main__':
+    unittest.main()

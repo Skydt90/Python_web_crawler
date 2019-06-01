@@ -5,7 +5,7 @@ from domain import get_domain_name
 from general import file_to_set
 
 PROJECT_NAME = "elective_dummy"
-HOMEPAGE = "https://clbokea.github.io/exam/"
+HOMEPAGE = "https://clbokea.github.io/exam/index.html"
 DOMAIN_NAME = get_domain_name(HOMEPAGE)
 QUEUE_FILE = PROJECT_NAME + "/queue.txt"
 NUMBER_OF_THREADS = 1

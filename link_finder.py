@@ -18,9 +18,9 @@ class LinkFinder(HTMLParser):
     def handle_starttag(self, tag, attrs):
         if tag == "a":
             for (attribute, value) in attrs:
-                if attribute == "href" and value != "https://clbokea.github.io/exam/#menu":
-                    url = parse.urljoin(self.base_url, value)
-                    self.links.add(url)
+                if (attribute == "href" and value != "#menu" and attribute == "href" and value != "next.html"):
+                        url = parse.urljoin(self.base_url, value)
+                        self.links.add(url)
         
         if self.is_inside_article:
             if tag != "ul":
@@ -44,9 +44,9 @@ class LinkFinder(HTMLParser):
     
     def get_data_with_tags(self):
         data_with_tags = []
-        self.data = list(filter(lambda name: name.strip(), self.data))
+        self.data = list(filter(lambda name: name.strip(), self.data)) #strip all indexes with only whitespaces
         i = 0
-        while i < len(self.data) -1:
+        while i < len(self.data):
             tag = self.tags[i]
             data = self.data[i]
             data_with_tags.append(tag + data)
