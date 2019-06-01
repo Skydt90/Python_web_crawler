@@ -1,4 +1,5 @@
 import unittest
+from spider import *
 
 class Test_Spider(unittest.TestCase):
 
@@ -16,41 +17,12 @@ class Test_Spider(unittest.TestCase):
         links.append(link_three)
         links.append(link_not_in_domain)
 
-        queue = []       ## in spider class it is a set
-        crawled = []     ## in spider class it is a set
-        queue.append(link_one)
-        crawled.append(link_two)
-
-        ### method from spider class 
-        for url in links:
-            if url in queue:
-                continue
-            if url in crawled:
-                continue
-            if domain_name not in url:
-                continue
-            queue.append(url)
-        ### method from spider class 
-
-        is_dublicate_link_one = False
-        is_dublicate_link_two = False
-        counter_link_one = 0
-        counter_link_two = 0
-
-        for link in queue:
-            if link == link_one:
-                counter_link_one += 1
-            if link == link_two:
-                counter_link_two += 1
-
-        if counter_link_one > 1:
-            is_dublicate_link_one = True
-        if counter_link_two > 1:
-            is_dublicate_link_two = True
+        Spider.domain_name = 'clbokea.github.io/exam'
+        Spider.crawled.add(link_one)
+        Spider.add_links_to_queue(links) # testing this method
         
-        self.assertFalse(is_dublicate_link_one, 'Error: queued link added to queue. \nThis url: ' + link_one)
-        self.assertFalse(is_dublicate_link_two, 'Error: crawled link added to queue. \nThis url: ' + link_two)
-        self.assertNotIn(link_not_in_domain, queue, 'Error added a url to queue who is not in the domain. \nDomain: ' + domain_name + '\nUrl added: ' + link_not_in_domain)
+        self.assertNotIn(link_one, Spider.queue, 'Error: crawled link added to queue. \nThis url: ' + link_one)
+        self.assertNotIn(link_not_in_domain, Spider.queue, 'Error added a url to queue who is not in the domain. \nDomain: ' + domain_name + '\nUrl added: ' + link_not_in_domain)
 
 
 
