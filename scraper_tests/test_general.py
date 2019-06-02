@@ -1,5 +1,5 @@
 import unittest
-from file_handler import *
+from scraper_program.file_handler import *
 
 class Test_General(unittest.TestCase):
 
