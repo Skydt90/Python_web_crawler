@@ -2,6 +2,8 @@ from urllib.request import urlopen
 from web_parser import WebParser
 from file_handler import create_project_directory, create_overview_files, create_content_file, set_to_file, list_to_file, file_to_set
 import sys
+import os
+import ssl
 
 class Scraper:
 
@@ -37,6 +39,9 @@ class Scraper:
 
     # Collects all urls and data from specified website
     def collect_links_and_data(self, page_url):
+        
+        if (not os.environ.get('PYTHONHTTPSVERIFY', '') and getattr(ssl, '_create_unverified_context', None)): 
+            ssl._create_default_https_context = ssl._create_unverified_context
         try:
             html_string = ""
             response = urlopen(page_url)
