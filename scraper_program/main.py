@@ -1,5 +1,5 @@
 from scraper import Scraper
-from domain import get_domain_name, get_sub_domain_name
+from domain_formatter import get_domain_name, get_sub_domain_name
 from file_handler import file_to_set
 
 PROJECT_NAME = "elective_dummy"
@@ -8,8 +8,7 @@ DOMAIN_NAME = get_domain_name(HOMEPAGE)
 QUEUE_FILE = PROJECT_NAME + "/queue.txt"
 content_file = PROJECT_NAME + "/content"
 
-# Initialise scraper to scrape initial site
-# and add links to queue file
+# Initialise scraper to scrape initial site & add links to queue file
 scraper = Scraper(PROJECT_NAME, HOMEPAGE, DOMAIN_NAME)
 
 # Use scraper to scrape every url in queue file

@@ -1,38 +1,42 @@
 import unittest
-from scraper_program.file_handler import *
+import os
+import shutil
+from scraper_program.file_handler import create_content_file, create_project_directory, create_overview_files, create_file, add_md_formatting
 
 class Test_File_Handler(unittest.TestCase):
 
-    def test_create_project_directory(self):
+    def test1_create_project_directory(self):
         directory = 'elective_dummy'
         create_project_directory(directory) # testing this method
         is_created = False
         if os.path.exists(directory):
             is_created = True
         self.assertTrue(is_created)
+    
 
-    def test_create_data_files(self):
+    def test2_create_data_files(self):
         project_name = 'elective_dummy'
         base_url = 'https://clbokea.github.io/exam/'
         queue = project_name + "/queue.txt"
-        crawled = project_name + "/scraped.txt"
+        scraped = project_name + "/scraped.txt"
 
         is_created_queue = False
-        is_created_crawled = False
+        is_created_scraped = False
 
         create_overview_files(project_name, base_url) # testing this method
 
         if os.path.exists(queue):
             is_created_queue = True
-        if os.path.exists(crawled):
-            is_created_crawled = True
+        if os.path.exists(scraped):
+            is_created_scraped = True
         self.assertTrue(is_created_queue, 'did not create file: ' + queue)
-        self.assertTrue(is_created_crawled, 'did not create file: ' + crawled)
+        self.assertTrue(is_created_scraped, 'did not create file: ' + scraped)
+        
 
-    def test_write_file(self):
+    def test3_write_file(self):
         project_name = 'elective_dummy'
-        contents = project_name + "/contents.md"
-        path = contents
+        content = project_name + "/content.md"
+        path = content
         data = 'this is some test data'
         create_file(path, data) # testing this method
         f = open(path, "r")
@@ -40,7 +44,7 @@ class Test_File_Handler(unittest.TestCase):
         f.close()
         self.assertEqual(resultData, data, 'did not write correctly to file, expected: ' + data + ' got: ' + data)
 
-    def test_add_md_formatting(self):
+    def test4_add_md_formatting(self):
         contents = []
 
         header1Tag = 'h1im a header tag'
@@ -86,7 +90,7 @@ class Test_File_Handler(unittest.TestCase):
         self.assertNotIn(p_tag_pAssignment, formatted_list, 'did not format correctly. \nThis item: ' + p_tag_pAssignment + '\nShould not be added to the list.')
         self.assertNotIn(p_tag_pre, formatted_list, 'did not format correctly. \nThis item: ' + p_tag_pre + '\nShould not be added to the list.')
         self.assertNotIn(p_tag_pHashtag, formatted_list, 'did not format correctly. \nThis item: ' + p_tag_pHashtag + '\nShould not be added to the list.')
-
+        shutil.rmtree("elective_dummy")    
 
 if __name__ == '__main__':
     unittest.main()

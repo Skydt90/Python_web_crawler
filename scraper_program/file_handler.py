@@ -16,7 +16,7 @@ def create_overview_files(project_name, base_url):
         if not os.path.isfile(scraped):
                 create_file(scraped, "")
         else: 
-                delete_file_content(scraped)
+                delete_file_content(scraped)                      # Delete if exists to avoid manual dir deletion on multiple program runs
                 delete_file_content(queue)
 
 # Create a file for the content on a website
@@ -24,13 +24,12 @@ def create_content_file(data_file):
         if not os.path.isfile(data_file):
                 create_file(data_file, "")
         else: 
-                delete_file_content(data_file)
+                delete_file_content(data_file)                    # Delete if exists to avoid manual dir deletion on multiple program runs
 
 # Creates a new file
 def create_file(path, data):
-        file = open(path, "w")
-        file.write(data)
-        file.close()
+        with open(path, "w") as file:
+                file.write(data)
         
 # Add data to existing files
 def add_to_file(path, data):
@@ -51,18 +50,18 @@ def delete_file_content(path):
 # Read a file and convert each line to set items
 def file_to_set(file_name):
         results = set()
-        with open(file_name, "rt") as f:
-                for line in f:
+        with open(file_name, "r") as file:
+                for line in file:
                         results.add(line.replace("\n", ""))
         return results
 
 # Iterate through a set, each item will be a new line in the file
-def set_to_file(links, file):
+def set_to_file(entries, file):
         delete_file_content(file)
-        for link in sorted(links):
-                add_to_file(file, link)
+        for entry in entries:
+                add_to_file(file, entry)
 
-# Writes each line in a list to the file
+# Formats input list entries to md format and writes to to file
 def list_to_file(contents, file):
         formatted = add_md_formatting(contents)
         write_to_mdfile(file, formatted)
@@ -79,7 +78,7 @@ def add_md_formatting(contents):
                         placeholder = "\n" + line.replace("h2", "## ")
                         formatted_list.append(placeholder)
                 elif line.startswith("p"):
-                        if not line.startswith("pNOTE") and not line.startswith("pAssignment") and not line.startswith("pre<") and not line.startswith("p#"):
+                        if not line.startswith("pNOTE") and not line.startswith("pAssignment") and not line.startswith("pre") and not line.startswith("p#"):
                                 placeholder = line.replace("p", "", 1) + "  "
                                 formatted_list.append(placeholder)
                 elif line.startswith("li"):

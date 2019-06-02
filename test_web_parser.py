@@ -1,8 +1,5 @@
-'''
-NOT WORKING
-
 import unittest
-from scraper_program.web_parser import *
+from scraper_program.web_parser import WebParser
 
 class Test_Web_Parser(unittest.TestCase):
 
@@ -20,7 +17,7 @@ class Test_Web_Parser(unittest.TestCase):
         tags_four = 'h2'
         tags_five = 'p'
 
-        finder = WebParser('', '')
+        finder = WebParser('')
         finder.data.append(data_one)
         finder.data.append(data_two)
         finder.data.append(data_three)
@@ -40,5 +37,3 @@ class Test_Web_Parser(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-
-'''
