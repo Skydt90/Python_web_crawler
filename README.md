@@ -1,7 +1,6 @@
 # python_web_crawler
-Python elective exam project - Computer Science 4. Semester
 
-This repository contains the source code for my mandatory android assignment on the 4. semester in the computer science study programme at KEA. Below are the most relevant requirements and a brief description of my solution to them.
+This repository contains the source code for my exam project in the python elective at KEA's computer science course. See install instructions and project description below
 
 ## Description
 ### 1. Implement a new feature in the app (not been taught by me in during class) 
