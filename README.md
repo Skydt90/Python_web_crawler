@@ -2,9 +2,6 @@
 
 This repository contains the source code solution to the first exam assignment in the python elective at KEA's computer science course. See project description and install instructions below.  
 
-***Programmers:*** *Christian Skydt & Jakob Wulff*
-
-
 ### Project Description
 The requirements for this assignment, was to build a program capable of "crawling & scraping" the contents of a website and saving the content from each individual site into locally stored .md files without the use of any third party modules. The advice was to choose a small website and also get some sort of limit on how many links should be followed.
 
@@ -16,8 +13,16 @@ The main actor in the program is the "scraper.py" module, which uses a combinati
 Since no thrid party modules were used for this project, it is possible to run it with no required setup as long as you are using Python 3.5+. Simply clone the repository.
 
 ### Project run
-to execute the main program:
+**To execute the main program:**  
 1. Navigate to "scraper_program" directory in the cloned repo.
 2. Execute "main.py" from terminal.
 3. You should see prints in terminal informing wether the program was successful or not. 
-4. The contents from the scraped websites will be located in a new directory at /scraper_program/elective_dummy/
+4. The contents from the scraped websites will be located in a new directory at "/scraper_program/elective_dummy/"
+
+**To execute the tests:**  
+1. Navigate to cloned repo.
+2. Execute either "test_file_handler.py" or "test_web_parser.py"
+3. You should see prints in terminal informing of test results. 
+
+
+***Programmers:*** *Christian Skydt & Jakob Wulff*
