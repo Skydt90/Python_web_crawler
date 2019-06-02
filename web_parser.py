@@ -1,7 +1,7 @@
 from html.parser import HTMLParser
 from urllib import parse
 
-class LinkFinder(HTMLParser):
+class WebParser(HTMLParser):
 
     def __init__(self, base_url, page_url):
         super().__init__()
@@ -44,9 +44,9 @@ class LinkFinder(HTMLParser):
     
     def get_data_with_tags(self):
         data_with_tags = []
-        self.data = list(filter(lambda name: name.strip(), self.data))
+        self.data = list(filter(lambda name: name.strip(), self.data)) #strip all indexes with only whitespaces
         i = 0
-        while i < len(self.data) -1:
+        while i < len(self.data):
             tag = self.tags[i]
             data = self.data[i]
             data_with_tags.append(tag + data)

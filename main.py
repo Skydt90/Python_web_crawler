@@ -1,44 +1,33 @@
-import threading
-from queue import Queue
-from spider import Spider
-from domain import get_domain_name
-from general import file_to_set
+from scraper import Scraper
+from domain import get_domain_name, get_sub_domain_name
+from file_handler import file_to_set
 
 PROJECT_NAME = "elective_dummy"
 HOMEPAGE = "https://clbokea.github.io/exam/index.html"
 DOMAIN_NAME = get_domain_name(HOMEPAGE)
 QUEUE_FILE = PROJECT_NAME + "/queue.txt"
-NUMBER_OF_THREADS = 1
-thread_queue = Queue()
-Spider(PROJECT_NAME, HOMEPAGE, DOMAIN_NAME)
+content_file = PROJECT_NAME + "/content"
 
-# Create worker threads (dies when main exits)
-def create_workers():
-    for _ in range(NUMBER_OF_THREADS):
-        thread = threading.Thread(target=work)
-        thread.daemon = True
-        thread.start()
+# Initialise scraper to scrape initial site
+# and add links to queue file
+scraper = Scraper(PROJECT_NAME, HOMEPAGE, DOMAIN_NAME)
 
-# Do the next job in queue
-def work():
-    while True:
-        url = thread_queue.get()
-        Spider.crawl_page(threading.current_thread().name, url)
-        thread_queue.task_done()
+# Use scraper to scrape every url in queue file
+# content_num is appended to content file 
+def run(content_num):
+        queue_urls = file_to_set(QUEUE_FILE)
 
-# Each queued link is a new job
-def create_jobs():
-    for link in file_to_set(QUEUE_FILE):
-        thread_queue.put(link)
-    thread_queue.join()
-    crawl()
+        for url in queue_urls:
+                scraper.scrape_page(url, content_file + str(content_num) + ".md")
+                content_num += 1
+        check_queue(content_num)
 
-# Check if there are items in queue, if so, crawl
-def crawl():
-    queue_links = file_to_set(QUEUE_FILE)
-    if len(queue_links) > 0:
-        print(str(len(queue_links)) + " links in the queue")
-        create_jobs()
+# This will ensure the queuefile is empty after running, 
+# in case new links were added during run
+def check_queue(content_num):
+        if len(file_to_set(QUEUE_FILE)) > 0:
+                run(content_num)
+        else:
+                print("-- All pages from '" + get_sub_domain_name(HOMEPAGE) + "' was scraped --")
 
-create_workers()
-crawl()
+run(1)

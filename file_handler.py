@@ -6,39 +6,41 @@ def create_project_directory(directory):
                 print("Creating project: '" + directory + "'")
                 os.makedirs(directory)
 
-# Create queue and crawled files (if not created)
-def create_data_files(project_name, base_url):
+# Create overview files if they don't exist
+def create_overview_files(project_name, base_url):
         queue = project_name + "/queue.txt"
-        crawled = project_name + "/crawled.txt"
-        contents = project_name + "/contents.md"
+        scraped = project_name + "/scraped.txt"
         
         if not os.path.isfile(queue):
-                write_file(queue, base_url)
-        if not os.path.isfile(crawled):
-                write_file(crawled, "")
-        if not os.path.isfile(contents):
-                write_file(contents, "")
+                create_file(queue, base_url)
+        if not os.path.isfile(scraped):
+                create_file(scraped, "")
         else: 
-                delete_file_content(crawled)
-                delete_file_content(contents)
+                delete_file_content(scraped)
+                delete_file_content(queue)
+
+# Create a file for the content on a website
+def create_content_file(data_file):       
+        if not os.path.isfile(data_file):
+                create_file(data_file, "")
+        else: 
+                delete_file_content(data_file)
 
 # Creates a new file
-def write_file(path, data):
-        f = open(path, "w")
-        f.write(data)
-        f.close()
-
+def create_file(path, data):
+        with open(path, "w") as file:
+                file.write(data)
+        
 # Add data to existing files
 def add_to_file(path, data):
         with open(path, "a") as file:
                 file.write(data + "\n")
 
-# Add data from list to md file
-def add_data_to_mdfile(path, contents):
-        f = open(path, "a")
-        for entry in contents:
-                f.write(entry + "\n")
-        f.close()
+# Write data from list to md file
+def write_to_mdfile(path, contents):
+        with open(path, "w") as file:
+                for entry in contents:
+                        file.write(entry + "\n")
 
 # Delete the contents of a file
 def delete_file_content(path):
@@ -62,7 +64,7 @@ def set_to_file(links, file):
 # Writes each line in a list to the file
 def list_to_file(contents, file):
         formatted = add_md_formatting(contents)
-        add_data_to_mdfile(file, formatted)
+        write_to_mdfile(file, formatted)
 
 # Converts the input list to an md formatted list
 def add_md_formatting(contents):
