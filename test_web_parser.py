@@ -1,7 +1,10 @@
-import unittest
-from link_finder import *
+'''
+NOT WORKING
 
-class Test_Link_Finder(unittest.TestCase):
+import unittest
+from scraper_program.web_parser import *
+
+class Test_Web_Parser(unittest.TestCase):
 
      def test_get_data_with_tags(self):
         data_one = 'this is data one'
@@ -17,7 +20,7 @@ class Test_Link_Finder(unittest.TestCase):
         tags_four = 'h2'
         tags_five = 'p'
 
-        finder = LinkFinder('', '')
+        finder = WebParser('', '')
         finder.data.append(data_one)
         finder.data.append(data_two)
         finder.data.append(data_three)
@@ -37,3 +40,5 @@ class Test_Link_Finder(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+'''

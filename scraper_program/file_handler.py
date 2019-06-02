@@ -28,8 +28,9 @@ def create_content_file(data_file):
 
 # Creates a new file
 def create_file(path, data):
-        with open(path, "w") as file:
-                file.write(data)
+        file = open(path, "w")
+        file.write(data)
+        file.close()
         
 # Add data to existing files
 def add_to_file(path, data):

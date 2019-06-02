@@ -1,3 +1,5 @@
+elective_dummy/
+__pycache__/
 scraper_program/elective_dummy/
 scraper_program/__pycache__/
 .DS_Store

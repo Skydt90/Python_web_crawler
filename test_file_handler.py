@@ -1,7 +1,7 @@
 import unittest
 from scraper_program.file_handler import *
 
-class Test_General(unittest.TestCase):
+class Test_File_Handler(unittest.TestCase):
 
     def test_create_project_directory(self):
         directory = 'elective_dummy'
@@ -15,12 +15,10 @@ class Test_General(unittest.TestCase):
         project_name = 'elective_dummy'
         base_url = 'https://clbokea.github.io/exam/'
         queue = project_name + "/queue.txt"
-        crawled = project_name + "/crawled.txt"
-        contents = project_name + "/contents.md"
+        crawled = project_name + "/scraped.txt"
 
         is_created_queue = False
         is_created_crawled = False
-        is_created_contents = False
 
         create_overview_files(project_name, base_url) # testing this method
 
@@ -28,11 +26,8 @@ class Test_General(unittest.TestCase):
             is_created_queue = True
         if os.path.exists(crawled):
             is_created_crawled = True
-        if os.path.exists(contents):
-            is_created_contents = True
         self.assertTrue(is_created_queue, 'did not create file: ' + queue)
         self.assertTrue(is_created_crawled, 'did not create file: ' + crawled)
-        self.assertTrue(is_created_contents, 'did not create file: ' + contents)
 
     def test_write_file(self):
         project_name = 'elective_dummy'
@@ -42,6 +37,7 @@ class Test_General(unittest.TestCase):
         create_file(path, data) # testing this method
         f = open(path, "r")
         resultData = f.read()
+        f.close()
         self.assertEqual(resultData, data, 'did not write correctly to file, expected: ' + data + ' got: ' + data)
 
     def test_add_md_formatting(self):
