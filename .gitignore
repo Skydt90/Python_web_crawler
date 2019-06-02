@@ -1,4 +1,3 @@
-/elective_dummy/*
-/__pycache/*
-/local.properties
+elective_dummy/
+__pycache/
 .DS_Store
